@@ -1,0 +1,24 @@
+Turn in a single file which I can load into Haskell named ni.hs
+
+Manipulation of non-standard natural numbers
+Consider lists of digits (base b) representing natural numbers.  The list starts with the least significant digit, and proceeds up.  Unlike standard natural numbers, these NI's can be nonstandard by having an infinite list of (nonzero) digits.
+
+Examples (in base 10):
+
+one = [1], or equivalently [1,0] or even [1,0,0,0,...]
+twelve = [2,1] (with an arbitrary number of trailing zeros.)
+Define
+
+ plus :: Int -> [Int] -> [Int] -> [Int]
+which takes a base (>=2) and two NIs, and returns their sum
+
+Define
+
+ times :: Int -> [Int] -> [Int] -> [Int]
+which is similar, but returns their product
+
+Examples:
+
+ plus 10 [7,2,1] [9,1,1] = [6,4,2]
+ plus 10 [1] (repeat 9) = repeat 0
+ times 10 [2] (repeat 9) = [8] ++ repeat 9

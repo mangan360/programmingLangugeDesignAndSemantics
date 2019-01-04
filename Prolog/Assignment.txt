@@ -1,0 +1,18 @@
+Solitaire Peg-Puzzle Solver
+An n-by-n solitaire peg puzzle is a square array of holes, each of which can have a peg or be empty.
+
+On each move the player can jump a peg over an adjacent peg (in any of the four directions N/S/E/W) landing on the empty hole on the other side, and removing the jumped-over peg.
+
+We will represent a board position as a list of n lists of n elements, where each element is x for a peg or o for a hole.  Example of a 3-by-3 position:
+
+  [[x,o,o],[x,o,o],[o,o,o]]
+There is only one legal move here, which would result in the following position:
+
+  [[o,o,o],[o,o,o],[x,o,o]]
+Write a Prolog predicate jump(board1,board2) which is true if you can perform a single jump on board1 to end up at board2.  This should have signature jump(+,-) or jump(-,+).
+
+Write a predicate solved(board) which is true if board has only a single peg.
+
+Write a Prolog predicate jumps([board|Bs]) which is true of a list of board positions where each position can be reached from the previous position, and the last position is "solved", i.e., passes solved/1 above.
+
+Use the above machinery to create and solve a 5-by-5 board with as many pegs in the starting board as you can. (Show this in a comment).

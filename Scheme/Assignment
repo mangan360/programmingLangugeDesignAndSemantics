@@ -1,0 +1,70 @@
+HW Scheme
+INSTRUCTIONS
+
+Turn in a file hw-scheme.scm, which can be loaded without error into mzscheme with
+
+(load "hw-scheme.scm")
+
+It should contain a series of function definitions.
+
+No side effects (i.e., no set!, no calling read or print or display).
+
+If you wrote test cases to check your code, and made a test jib, please include it in a definition like
+
+(define run-tests ...)
+
+which returns a list of tests that failed, or whatever.
+
+PROBLEMS
+
+Let us represent the polynomial
+
+p(x) = a0 + a1 x + a2 x2 + ... + an xn
+
+as a list of coefficients
+
+(a0 a1 ... an)
+
+Note that the constant coefficient comes first.  (The coefficients are just numbers, nothing fancy like symbolic expressions.)  We will refer to such a list of coefficients below as a polynomial.
+
+Define poly-eval where (poly-eval p x) evaluates the polynomial p at the point x.
+Example:
+(poly-eval '(1 2 3) 100) => 30201
+(poly-eval '() 7) => 0
+
+Define poly-add, a polynomial addition routine, where (poly-add p1 p2) returns  sum of the two polynomials it is passed.
+This would have the property that
+(poly-eval (poly-add p1 p2) x) = (+ (poly-eval p1 x) (poly-eval p2 x))
+
+Example:
+(poly-add '(1 2 3) '(11 21 31 41)) => (12 23 34 41)
+
+Define poly-mul, a polynomial addition routine, so (poly-mul p1 p2) returns the product of two polynomials.
+This would have the property that
+(poly-eval (poly-mul p1 p2) x) = (* (poly-eval p1 x) (poly-eval p2 x))
+
+Example:
+(poly-mul '(1 2 3) '(11 21 31 41)) => (11 43 106 166 175 123)
+
+Define poly-diff, a derivative-taking routine, where (poly-diff p) returns the polynomial which is the derivative of the one it is passed.
+Example:
+(poly-diff '(1 10 100 1000 10000)) => (10 200 3000 40000)
+(poly-diff '(7)) => ()
+
+Define poly-int, an integration routine, where (poly-int p) returns the anti-derivative of the polynomial p, with a constant term of zero.
+This would have the property that
+(poly-diff (poly-int p)) = p
+for any polynomial p.
+
+Example:
+(poly-int '(10 200 3000 40000)) => (0 10 100 1000 10000)
+(poly-int '()) => ()
+
+Define grovel-poly-eval where (grovel-poly-eval s x) takes an s-expression s and a number s, and throughout s (even if deeply nested) replaces any list that begins with the symbol poly with the result of poly-eval of the remainder of that list at the given point x.  You can assume that the remainder of a list beginning with the symbol poly is a valid polynomial.
+Example:
+(govel-poly-eval '(the (poly 1 2) brown (fox (poly 7 0 1) jumps (poly) over)) 5)
+=> (the 11 brown (fox 32 jumps 0 over))
+
+[EXTRA CREDIT] Define poly-shift, which shifts a polynomial by a constant, so (poly-shift p s) shifts the polynomial p by an offset of s.
+This would have the property that
+(poly-eval (poly-shift p s) (- x s)) = (poly-eval p x)
