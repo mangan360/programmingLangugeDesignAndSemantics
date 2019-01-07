@@ -1,0 +1,131 @@
+﻿Stephen Mangan
+14434682 
+CS424 Lambda Calculus assignment
+
+Question 1 -> Define the following abbreviations
+
+Q1.1
+kar(kons e1 e2) ↝ e1
+
+Rewrite with definition
+(λ p.p(λ n a d.a))((λ a d z.z false a d) e1 e2) ↝ e1
+Rewrite with definition
+(λ p.p(λ n a d.a))((λ a d z.z(λ a b.b) a d) e1 e2) ↝ e1
+β - reduction[p := ((λ a d z.z(λ a b.b) a d) e1 e2)]
+((λ a d z.z(λ a b.b) a d) e1 e2) (λ n a d.a) ↝ e1
+β - reduction[a := e1]
+((λ d z.z(λ a b.b) e1 d) e2) (λ n a d.a) ↝ e1
+β - reduction[d := e2]
+((λ z.z(λ a b.b) e1 e2)) (λ n a d.a) ↝ e1
+β - reduction[z := (λ n a d.a)]
+((λ n a d.a) (λ a b.b) e1 e2) ↝ e1
+β - reduction[n := (λ a b.b)]
+((λ a d.a) e1 e2) ↝ e1
+β - reduction[a := e1]
+((λ d.e1) e2) ↝ e1
+β - reduction[d := e2]
+e1 ↝ e1
+
+Q1.2
+kdr(kons e1 e2) ↝ e2
+Rewrite with definition
+(λ p.p(λ n a d.d))((λ a d z.z false a d) e1 e2) ↝ e2
+Rewrite with definition
+(λ p.p(λ n a d.d))((λ a d z.z(λ a b.b) a d) e1 e2) ↝ e2
+β - reduction[p := (λ a d z.z(λ a b.b) a d) e1 e2)]
+(((λ a d z.z(λ a b.b) a d) e1 e2) (λ n a d.d)) ↝ e2
+β - reduction[a := e1]
+((λ d z.z(λ a b.b) e1 d) (λ n a d.d)) ↝ e2
+β - reduction[d := e2]
+((λ z.z(λ a b.b) e1 e2) (λ n a d.d)) ↝ e2
+β - reduction[z := (λ n a d.d)]
+((λ n a d.d) (λ a b.b) e1 e2) ↝ e2
+β - reduction[n := (λ a b.b)]
+((λ a d.d) e1 e2) ↝ e2
+β - reduction[a := e1]
+((λ d.d) e2) ↝ e2
+β - reduction[d := e2]
+e2 ↝ e2
+
+Q1.3
+null ? (kons e1 e2) ↝  false
+Rewrite with definition
+(λ p.p(λ n a d.n))((λ a d z.z false a d) e1 e2) ↝ false
+Rewrite with definition
+(λ p.p(λ n a d.n))((λ a d z.z(λ a b.b) a d) e1 e2) ↝ (λ a b.b)
+β - reduction[p := ((λ a d z.z(λ a b.b) a d) e1 e2)]
+(((λ a d z.z(λ a b.b) a d) e1 e2) (λ n a d.n)) ↝ (λ a b.b)
+β - reduction[a := e1]
+(((λ d z.z(λ a b.b) e1 d) e2) (λ n a d.n)) ↝ (λ a b.b)
+β - reduction[d := e2]
+((λ z.z(λ a b.b) e1 e2) (λ n a d.n)) ↝ (λ a b.b)
+β - reduction[z := (λ n a d.n)]
+((λ n a d.n) (λ a b.b) e1 e2) ↝ (λ a b.b)
+β - reduction[n := (λ a b.b)]
+((λ a d.(λ a b.b)) e1 e2) ↝ (λ a b.b)
+β - reduction[a := e1]
+((λ d.(λ a b.b)) e2) ↝ (λ a b.b)
+β - reduction[d := e2]
+(λ a b.b) ↝ (λ a b.b)
+Rewrite with definition
+false ↝ false
+
+Q1.4
+null ? null ↝ true
+
+Rewrite with definition
+(λ p.p(λ n a d.n))(λ z.z true false false) ↝ true
+
+Rewrite with definition
+(λ p.p(λ n a d.n))(λ z.z(λ a b.a)(λ a b.b)(λ a b.b)) ↝ (λ a b.a)
+
+β - reduction[p := (λ z.z(λ a b.a)(λ a b.b)(λ a b.b))]
+((λ z.z(λ a b.a)(λ a b.b)(λ a b.b)) (λ n a d.n)) ↝ (λ a b.a)
+
+β - reduction[z := (λ n a d.n)]
+((λ n a d.n) (λ a b.a) (λ a b.b) (λ a b.b)) ↝ (λ a b.a)
+
+β - reduction[n := (λ a b.a)]
+((λ a d.(λ a b.a)) (λ a b.b) (λ a b.b)) ↝ (λ a b.a)
+
+β - reduction[a := (λ a b.b)]
+((λ d.(λ a b.a)) (λ a b.b)) ↝ (λ a b.a)
+
+β - reduction[d := (λ a b.b)]
+(λ a b.a) ↝ (λ a b.a)
+
+Rewrite with definition
+true ↝ true
+
+Question 2 -> Reduce the following term to normal form:
+
+(λc . (λa . (λd . (λh . (h (d (a (a (λz y . y))) (d (a (a (λf x . x))) (a (a (a (λz x . x)))))) (h (a (a (λz y . y))) (a (a (a (λz x . x))))))) (λn m . n (d m) (λz y . y))) (λn m . n a m)) (λn z . c (n z) z)) (λz g x . z (g x))
+
+using false = λab.b , true = λab.a & alpha-substitution
+(λc . (λa . (λd . λh . (h (d (a (a (false))) (d (a (a (false))) (a (a (a (false)))))) (h (a (a (false))) (a (a (a (false))))))) (true (s o) (false))) (true k m)) (λq w . e (q w) w) (λz j p . z (g x))
+
+λc by β - reduction
+(λa . (λd . λh . (h (d (a (a (false))) (d (a (a (false))) (a (a (a (false)))))) (h (a (a (false))) (a (a (a (false))))))) (true (s o) (false))) (true k m)(λz j p . z (g x))
+
+λa by β - reduction
+(λd . λh . (h (d (true k m (true k m (false))) (d (true k m (true k m (false))) (true k m (true k m (true k m (false)))))) (h (true k m (true k m (false))) (true k m (true k m (true k m (false))))))) (true (s o) (false))(λz j p . z (g x))
+
+λd by β - reduction
+(λh . (h (true (s o) false (true k m (true k m (false))) (true (s o) false (true k m (true k m (false))) (true k m (true k m (true k m (false)))))) (h (true k m (true k m (false))) (true k m (true k m (true k m (false))))))) (λz j p . z (g x))
+
+λh by β - reduction
+(λz j p . z )(g x) (true (s o) false (true k m (true k m false)) (true (s o) false (true k m (true k m false)) (true k m (true k m (true k m false))))) ((λz j p . z )(g x) (true k m (true k m false)) (true k m (true k m (true k m false)))) 
+
+rewrite
+(λz.λj.λp.z)(g x) (true (s o) false (true k m (true k m false)) (true (s o) false (true k m (true k m false)) (true k m (true k m (true k m false))))) ((λz.λj.λp.z)(g x) (true k m (true k m false)) (true k m (true k m (true k m false)))) 
+
+λz two occurances by β - reduction
+(λj.λp.g x)(true (s o) false (true k m (true k m false)) (true (s o) false (true k m (true k m false)) (true k m (true k m (true k m false))))) ((λj.λp.g x) (true k m (true k m false)) (true k m (true k m (true k m false)))) 
+
+λj by β - reduction
+(λp.g x) ((λp.g x) (true k m (true k m (true k m false)))) 
+
+λp by β - reduction
+(g x) 
+
+Normal Form = g x
